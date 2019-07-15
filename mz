@@ -306,7 +306,7 @@ def show():
                             desc += '\n' + please_connect
                     else:
                         maintainer = (re.findall('maintainer.*', text)[0]).replace("'", '').replace('maintainer=', '').replace('"', '')
-                        desc = ((text.split('|')[2]).replace('#', '').replace('=', '').replace("'", '"')).split('"')[1]
+                        desc = ((text.split('|')[2]).replace('#', '').replace('=', '').replace('desc"', ''))[:-2]
 
                     print('Package Name: ' + pkgname)
                     print('Version.....: ' + version)
