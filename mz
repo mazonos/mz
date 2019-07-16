@@ -199,9 +199,9 @@ def install():
                     pkglist = ''
 
                     if pkgcount == 1:
-                        install = input('You like install ' + packages[0].replace('.mz', '') + ' ? [Y/n] : ')
+                        install = input('Do you like install ' + packages[0].replace('.mz', '') + ' ? [Y/n] : ')
                         if install == 'Y' or install == 'y':
-                            os.system('wget -O /tmp/' + packages[0] + ' ' + url + links[0])
+                            os.system('wget -O /tmp/' + packages[0] + ' ' + links[0])
                             os.system('banana install ' + '/tmp/' + packages[0])
                             os.system('rm ' + '/tmp/' + packages[0])
                         else:
