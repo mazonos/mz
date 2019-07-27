@@ -7,7 +7,7 @@
 # Licença: Todos os arquivos : MIT                     #
 ########################################################
 
-#------------------- VARIABLES ------------------------>
+#------------------- VARIÁVEIS ------------------------>
 
 # Diretórios
 url     = 'http://mazonos.com/packages/' # Repositório oficial
@@ -38,10 +38,10 @@ chooses = [
 
 modules = ['requests', 'bs4']
 
-#------------------- END VARIABLES -------------------->
+#------------------- FIM VARIÁVEIS -------------------->
 
 
-#------------------- IMPORTS -------------------------->
+#------------------- IMPORTAÇÕES ---------------------->
 
 import sys, os, csv, threading, itertools, time, re
 
@@ -67,19 +67,19 @@ import requests, bs4
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-#------------------- END IMPORTS ---------------------->
+#------------------- FIM IMPORTAÇÕES ------------------>
 
 
 
-#------------------- FUNCTIONS ------------------------>
+#------------------- FUNÇÕES -------------------------->
 
 def check():
-    # Checks if the folder exists
+    # Verifica se o diretório existe
     if not os.path.isdir(dircsv):
         os.mkdir(dircsv)
         print('Criando diretório ' + dircsv + '.')
 
-    # Checks if the file exists
+    # Verifica se o arquivo existe
     if not os.path.isfile(filecsv):
         os.system('touch ' + filecsv)
         print('Criando arquivo ' + filecsv + '.')
@@ -136,8 +136,7 @@ def animate():
     text = textAnimate.replace('Pesquisando...','Pesquisa ').replace('Atualizando... ','Atualização ') + 'concluída!'
     sys.stdout.write('\r' + text + '\n')
 
-
-##------------------ CHOOSE-FUNCTIONS ----------------->
+##-------------- FUNÇÕES DE OPÇÔES DO MENU ------------>
 
 def s():
     search()
@@ -152,7 +151,7 @@ def search():
         global found
         package = str(sys.argv[2])
 
-        ### OPEN CSV
+        ### ABRE CSV
         with open(filecsv, 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
 
@@ -182,15 +181,15 @@ def install():
             package = str(sys.argv[2])
             links = []
             packages = []
-            ### OPEN CSV
+            ### ABRE CSV
             with open(filecsv, 'r') as csvfile:
                 csv_reader = csv.reader(csvfile)
 
                 for line in csv_reader:
                     if package in line[1]:
                        found = True
-                       links.append(url + line[0] + line[1])         # Links for download
-                       packages.append(line[1])   # Package names
+                       links.append(url + line[0] + line[1])   # Links para download
+                       packages.append(line[1])   # Nomes de pacotes
 
                 if found:
                     pkgcount = packages.__len__()
@@ -205,7 +204,7 @@ def install():
                         else:
                             exit(0)
                     else:
-                        # Make pkglist
+                        # Cria lista de pacotes
                         if pkgcount == 2:
                             pkglist = "'" + packages[0].replace('.mz', '') + "' e '" + packages[1].replace('.mz', '') + "'."
                         else:
@@ -225,7 +224,7 @@ def install():
                             else:
                                 exit(0)
 
-                else: # if not found
+                else: # found == FALSE
                     print(package_not_found)
 
     else:
@@ -273,7 +272,7 @@ def show():
         global found
         package = str(sys.argv[2])
 
-        ### OPEN CSV
+        ### ABRE CSV
         with open(filecsv, 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
 
@@ -284,7 +283,7 @@ def show():
                     pkgname = line[1].split('-')[0]
                     version = line[1].replace(pkgname + '-','').replace('.mz','')
 
-                    # Trying obtains .desc
+                    # Tentando obter o .desc
                     internet = internet_on()
                     nodesc = True
                     if not line[2] == '':
@@ -295,7 +294,7 @@ def show():
                                 nodesc = False
                                 text = r.text
 
-                    # Set maintainer and desc
+                    # Armazena o mantenedor e a descrição
                     if nodesc:
                         maintainer = '(não identificado)'
                         desc = 'A descrição deste pacote não está disponível!'
@@ -328,7 +327,7 @@ def update():
         t = threading.Thread(target=animate)
         t.start()
 
-        ### UPDATE WEB
+        ### ATUALIZAÇÃO WEB
         r = requests.get(url)
         
         soup = BeautifulSoup(r.content, 'html.parser')
@@ -395,7 +394,7 @@ def checkdesc():
         t = threading.Thread(target=animate)
         t.start()
 
-        ### OPEN CSV
+        ### ABRE CSV
         with open(filecsv, 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
 
@@ -416,9 +415,9 @@ def checkdesc():
         print(please_connect)
         exit(0)
 
-##------------------ END CHOOSE-FUNCTIONS ------------->
+##------------ FIM FUNÇÕES DE OPÇÔES DO MENU ---------->
 
-#------------------- END FUNCTIONS -------------------->
+#------------------- FIM FUNÇÕES ---------------------->
 
 try:
     check()
