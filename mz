@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-########################################################
-#                                                      #
-#                mz python3 - v1.0.0.1                 #
-#            Created: Diego Sarzi - 2019               #
-#            Updated: Vovolinux- 14/07/2019            #
-#                   License: MIT                       #
-#                                                      #
+########################################################                                                                            #
+# mz python3 - v1.0.2                                  #
+# Author: Diego Sarzi <diegosarzi@gmail.com> - 2019    #
+# Updated: Vovolinux - 2019                            #
+# License: All files: MIT                              #
 ########################################################
 
 #------------------- VARIABLES ------------------------>
