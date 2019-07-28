@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 ########################################################                                                                            #
 # mz python3 - v1.0.2                                  #
-# Author: Diego Sarzi <diegosarzi@gmail.com> - 2019    #
-# Updated: Vovolinux - 2019                            #
-# License: All files: MIT                              #
+# Autor: Diego Sarzi <diegosarzi@gmail.com> - 2019     #
+# Atualização: Vovolinux - 2019                        #
+# Licença: Todos os arquivos : MIT                     #
 ########################################################
 
-#------------------- VARIABLES ------------------------>
+#------------------- VARIÁVEIS ------------------------>
 
-# Paths
-url     = 'http://mazonos.com/packages/' # Official Repository
-filecsv = '/var/lib/mz/mz_base.csv'      # Repository package list
-dircsv  = '/var/lib/mz/'                 # Folder for the .csv file
-dirlist = '/var/lib/banana/list/'        # Folder for the .list file
+# Diretórios
+url     = 'http://mazonos.com/packages/' # Repositório oficial
+filecsv = '/var/lib/mz/mz_base.csv'      # Lista de pacotes do repositório
+dircsv  = '/var/lib/mz/'                 # Diretório para o arquivo .csv
+dirlist = '/var/lib/banana/list/'        # Diretório para o arquivo .list
 
 # Flags
 found = False
@@ -21,8 +22,8 @@ done  = False
 # Strings
 choose            = ''
 textAnimate       = ''
-please_connect    = 'Please check your internet connection!'
-package_not_found = 'Package not found.'
+please_connect    = 'Por favor, verifique sua conexão com a internet!'
+package_not_found = 'Pacote não encontrado.'
 
 # Arrays
 chooses = [
@@ -37,18 +38,18 @@ chooses = [
 
 modules = ['requests', 'bs4']
 
-#------------------- END VARIABLES -------------------->
+#------------------- FIM VARIÁVEIS -------------------->
 
 
-#------------------- IMPORTS -------------------------->
+#------------------- IMPORTAÇÕES ---------------------->
 
 import sys, os, csv, threading, itertools, time, re
 
 '''
-Loop in modules:
-    FUNCTION: Install python3 modules.
-    DATE....: 01/07/2019
-    CREDITS.: José Almeida <@joseafga>
+Loop em modules:
+    FUNÇÃO..: Instalar módulos do python3.
+    DATA....: 01/07/2019
+    CRÉDITOS: José Almeida <@joseafga>
               Rubens <@rubenss>
               Vovolinux <suporte@vovolinux.com.br>
 '''
@@ -57,7 +58,7 @@ for module in modules:
     try:
         __import__(module)
     except Exception as e:
-        print('Installing modules...')
+        print('Instalando módulos..')
         os.system('pip3 install ' + str(module))
         os.system('clear')
         
@@ -66,22 +67,22 @@ import requests, bs4
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-#------------------- END IMPORTS ---------------------->
+#------------------- FIM IMPORTAÇÕES ------------------>
 
 
 
-#------------------- FUNCTIONS ------------------------>
+#------------------- FUNÇÕES -------------------------->
 
 def check():
-    # Checks if the folder exists
+    # Verifica se o diretório existe
     if not os.path.isdir(dircsv):
         os.mkdir(dircsv)
-        print('Created folder ' + dircsv + '.')
+        print('Criando diretório ' + dircsv + '.')
 
-    # Checks if the file exists
+    # Verifica se o arquivo existe
     if not os.path.isfile(filecsv):
         os.system('touch ' + filecsv)
-        print('Created file ' + filecsv + '.')
+        print('Criando arquivo ' + filecsv + '.')
         os.system('clear')
         update()
         
@@ -99,20 +100,19 @@ def main():
 
 def menu():
     print(''' mz 1.0.0.1 (amd64)
+ 'mz' é um gerenciador de pacotes de linha de comando e fornece comandos 
+  para procurar e gerenciar pacotes utilizando o bananapkg.
 
- 'mz' is a commandline package manager and provides commands
- for searching and managing packages next to bananapkg.
-
- OPTIONS:
- s | search    - Search from package name.
- i | install   - Install package.
- r | remove    - Remove package.
- w | show      - Show description package.
- u | update    - Update list packages in repositore online. Need Internet.
- g | upgrade   - Automatic updating of system base and bug fixes.
- c | checkdesc - Search for packages without description.
+ OPÇÕES:
+ s | search    - Pesquisa pelo nome do pacote.
+ i | install   - Instala o pacote.
+ r | remove    - Remove o pacote.
+ w | show      - Exibe a descrição do pacote.
+ u | update    - Atualiza a lista de pacotes do repositório online. Precisa de internet.
+ g | upgrade   - Atualização automática da base do sistema e correções de bugs.
+ c | checkdesc - Procura por pacotes sem descrição no repositório online.
  
- Usage: mz [option] package
+ Uso: mz [opção] pacote
 ''')
 
 
@@ -125,7 +125,6 @@ def internet_on():
 
 
 def animate():
-
     for c in itertools.cycle(['|', '/', '-', '\\']):
         if done:
             break
@@ -133,11 +132,11 @@ def animate():
         sys.stdout.write('\r' + textAnimate + c)
         sys.stdout.flush()
         time.sleep(0.1)
+    
+    text = textAnimate.replace('Pesquisando...','Pesquisa ').replace('Atualizando... ','Atualização ') + 'concluída!'
+    sys.stdout.write('\r' + text + '\n')
 
-    sys.stdout.write('\r' + textAnimate + 'complete!   \n')
-
-
-##------------------ CHOOSE-FUNCTIONS ----------------->
+##-------------- FUNÇÕES DE OPÇÔES DO MENU ------------>
 
 def s():
     search()
@@ -152,7 +151,7 @@ def search():
         global found
         package = str(sys.argv[2])
 
-        ### OPEN CSV
+        ### ABRE CSV
         with open(filecsv, 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
 
@@ -162,7 +161,7 @@ def search():
                     count += 1
                     print(line[1].replace('.mz', ''))
                     found = True
-            print(str(count) + ' package(s) found.')
+            print(str(count) + ' pacote(s) encontrado(s).')
 
             if not found:
                 print(package_not_found)
@@ -182,42 +181,42 @@ def install():
             package = str(sys.argv[2])
             links = []
             packages = []
-            ### OPEN CSV
+            ### ABRE CSV
             with open(filecsv, 'r') as csvfile:
                 csv_reader = csv.reader(csvfile)
 
                 for line in csv_reader:
                     if package in line[1]:
                        found = True
-                       links.append(url + line[0] + line[1])         # Links for download
-                       packages.append(line[1])   # Package names
+                       links.append(url + line[0] + line[1])   # Links para download
+                       packages.append(line[1])   # Nomes de pacotes
 
                 if found:
                     pkgcount = packages.__len__()
                     pkglist = ''
 
                     if pkgcount == 1:
-                        install = input('Do you like install ' + packages[0].replace('.mz', '') + ' ? [Y/n] : ')
-                        if install == 'Y' or install == 'y':
+                        install = input('Deseja instalar ' + packages[0].replace('.mz', '') + ' ? [S/n] : ')
+                        if install == 'S' or install == 's':
                             os.system('wget -O /tmp/' + packages[0] + ' ' + links[0])
                             os.system('banana install ' + '/tmp/' + packages[0])
                             os.system('rm ' + '/tmp/' + packages[0])
                         else:
                             exit(0)
                     else:
-                        # Make pkglist
+                        # Cria lista de pacotes
                         if pkgcount == 2:
-                            pkglist = "'" + packages[0].replace('.mz', '') + "' and '" + packages[1].replace('.mz', '') + "'."
+                            pkglist = "'" + packages[0].replace('.mz', '') + "' e '" + packages[1].replace('.mz', '') + "'."
                         else:
                             for p in packages:
                                  pkglist += (p + ', ')
 
                             pkglist = pkglist[:-2] + '.'
 
-                        print(str(pkgcount) + ' packages found: ' + pkglist.replace('.mz', ''))
+                        print(str(pkgcount) + ' pacotes encontrados: ' + pkglist.replace('.mz', ''))
 
-                        install = input('Do you like install ALL packages ? [Y/n] : ')
-                        if install == 'Y' or install == 'y':
+                        install = input('Deseja instalar TODOS os pacotes ? [S/n] : ')
+                        if install == 'S' or install == 's':
                             for p in range(pkgcount):
                                 os.system('wget -O /tmp/' + packages[p] + ' ' + links[p])
                                 os.system('banana install ' +  '/tmp/' + packages[p])
@@ -225,7 +224,7 @@ def install():
                             else:
                                 exit(0)
 
-                else: # if not found
+                else: # found == FALSE
                     print(package_not_found)
 
     else:
@@ -251,8 +250,8 @@ def remove():
             found = True
             for pack in newlist:
                 package = pack.replace('.list', '')
-                remove  = input('You like remove ' + package + '? [Y/n] : ')
-                if remove == 'y' or remove == 'Y':
+                remove  = input('Deseja remover ' + package + '? [S/n] : ')
+                if remove == 'S' or remove == 's':
                     os.system('banana remove ' + package + ' -y')
                 else:
                     exit(0)
@@ -273,7 +272,7 @@ def show():
         global found
         package = str(sys.argv[2])
 
-        ### OPEN CSV
+        ### ABRE CSV
         with open(filecsv, 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
 
@@ -284,7 +283,7 @@ def show():
                     pkgname = line[1].split('-')[0]
                     version = line[1].replace(pkgname + '-','').replace('.mz','')
 
-                    # Trying obtains .desc
+                    # Tentando obter o .desc
                     internet = internet_on()
                     nodesc = True
                     if not line[2] == '':
@@ -295,10 +294,10 @@ def show():
                                 nodesc = False
                                 text = r.text
 
-                    # Set maintainer and desc
+                    # Armazena o mantenedor e a descrição
                     if nodesc:
-                        maintainer = '(unknown)'
-                        desc = 'Description not available for this package!'
+                        maintainer = '(não identificado)'
+                        desc = 'A descrição deste pacote não está disponível!'
 
                         if not internet:
                             desc += '\n' + please_connect
@@ -306,9 +305,9 @@ def show():
                         maintainer = (re.findall('maintainer.*', text)[0]).replace("'", '').replace('maintainer=', '').replace('"', '')
                         desc = ((text.split('|')[2]).replace('#', '').replace('=', '').replace('desc"', ''))[:-2]
 
-                    print('Package Name: ' + pkgname)
-                    print('Version.....: ' + version)
-                    print('Maintainer..: ' + maintainer)
+                    print('Nome do Pacote: ' + pkgname)
+                    print('Versão........: ' + version)
+                    print('Mantenedor....: ' + maintainer)
                     print(desc)
                     print('-------------------------------------------------------------------------\n')
 
@@ -323,12 +322,12 @@ def update():
         global textAnimate
         global done
 
-        textAnimate = 'Updating '
+        textAnimate = 'Atualizando... '
 
         t = threading.Thread(target=animate)
         t.start()
 
-        ### UPDATE WEB
+        ### ATUALIZAÇÃO WEB
         r = requests.get(url)
         
         soup = BeautifulSoup(r.content, 'html.parser')
@@ -376,7 +375,7 @@ def g():
     upgrade()
 
 def upgrade():
-    print('Upgrading...')
+    print('Atualizando...')
 
 def c():
     checkdesc()
@@ -391,34 +390,34 @@ def checkdesc():
         found = False
         nodescs = []
 
-        textAnimate = 'Searching '
+        textAnimate = 'Pesquisando... '
         t = threading.Thread(target=animate)
         t.start()
 
-        ### OPEN CSV
+        ### ABRE CSV
         with open(filecsv, 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
 
             for line in csv_reader:
                 if line[2] == '':
                     found = True
-                    nodescs.append(' ' + line[0] + line[1] + '.desc -> not found!')
+                    nodescs.append(' ' + line[0] + line[1] + '.desc -> não encontrado!')
             done = True
 
         if found:
-            print('The following packages do not have the .desc file:')
+            print('Os seguintes pacotes não possuem o arquivo .desc:')
             for n in nodescs:
                 print(n)
         else:
-            print('All packages are OK!')
+            print('Todos os pacotes OK!')
 
     else:
         print(please_connect)
         exit(0)
 
-##------------------ END CHOOSE-FUNCTIONS ------------->
+##------------ FIM FUNÇÕES DE OPÇÔES DO MENU ---------->
 
-#------------------- END FUNCTIONS -------------------->
+#------------------- FIM FUNÇÕES ---------------------->
 
 try:
     check()
@@ -430,7 +429,7 @@ try:
         functions[choose]()
     else:
         menu()
-        print('Invalid \"' + choose + '\" operation!')
+        print('Opção \"' + choose + '\" inválida!')
 
 except KeyboardInterrupt:
     print('\n')
