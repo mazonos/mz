@@ -1,11 +1,33 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-########################################################                                                                            #
-# mz python3 - v1.0.2                                  #
-# Autor: Diego Sarzi <diegosarzi@gmail.com> - 2019     #
-# Atualização: Vovolinux - 2019                        #
-# Licença: Todos os arquivos : MIT                     #
-########################################################
+#############################################################################
+# mz - gerenciador de pacotes de linha de comando                           #
+# Copyright (C) 2019 Diego Sarzi <diegosarzi@gmail.com>                     #
+#                                                                           #
+# Licença: MIT                                                              #
+# Permissão é concedida, gratuitamente, a qualquer pessoa que obtiver uma   #
+# cópia deste software e dos arquivos de documentação associados (ao        #
+# "Software"), para lidar com o Software sem restrições, incluindo, sem     #
+# limitação os direitos de usar, copiar, modificar, mesclar, publicar,      #
+# distribuir, sublicenciar,e/ou vender cópias do Software, e para permitir  #
+# que as pessoas a quem o software é fornecido para isso, sujeito às        #
+# seguintes condições:                                                      #
+# .                                                                         #
+# O aviso de copyright acima e este aviso de permissão devem ser incluídos  #
+# em todas as cópias ou partes substanciais do Software.                    #
+# .                                                                         #
+# O SOFTWARE É FORNECIDO "COMO ESTÁ", SEM GARANTIA DE QUALQUER TIPO,        #
+# EXPRESSA OU IMPLÍCITA, INCLUINDO, MAS NÃO SE LIMITANDO ÀS GARANTIAS       #
+# COMERCIABILIDADE, ADEQUAÇÃO A UM FIM ESPECÍFICO E NÃO VIOLAÇÃO.           #
+# EM NENHUM CASO, OS AUTORES OU OS TITULARES DOS DIREITOS DE AUTOR PODERÃO  # 
+# SER RESPONSABILIZADOS POR RECLAMAÇÕES, DANOS OU OUTRAS RESPONSABILIDADES, #
+# QUER EM AÇÃO DE CONTRATO, DELITO OU DE OUTRA FORMA, DECORRENTE DE, FORA   #
+# OU EM CONEXÃO COM SOFTWARE OU O USO OU OUTRAS OFERTAS NO SOFTWARE.        #
+#---------------------------------------------------------------------------#
+#                                                                           #
+# Copyright: 2019 Diego Sarzi <diegosarzi@gmail.com>                        #
+#            2019 Vovolinux <suporte@viniciusalopes.com.br>                 #
+#                                                                           #
+#############################################################################
 
 #------------------- VARIÁVEIS ------------------------>
 
