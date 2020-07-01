@@ -31,7 +31,7 @@
 #------------------- VARIABLES ------------------------>
 
 # Paths
-url     = 'http://mazonos.com/packages/' # Official Repository
+url     = 'https://mazonos.com/packages/' # Official Repository
 filecsv = '/var/lib/mz/mz_base.csv'      # Repository package list
 dircsv  = '/var/lib/mz/'                 # Folder for the .csv file
 dirlist = '/var/lib/banana/list/'        # Folder for the .list file
